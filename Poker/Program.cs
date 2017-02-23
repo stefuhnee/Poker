@@ -88,7 +88,7 @@ namespace Poker
             int rank = hand.cards[0].rank;
             for (int i = 1; i < hand.cards.Length; i++)
             {
-                if (hand.cards[i] == hand.cards[i - 1])
+                if (hand.cards[i].rank == hand.cards[i - 1].rank)
                     counter++;
                 else
                     counter = 1;
