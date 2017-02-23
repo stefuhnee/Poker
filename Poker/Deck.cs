@@ -16,15 +16,10 @@ namespace Poker
             int rank =  randomGen.Next(2, 15);
             SuitType suit = (SuitType)randomGen.Next(0, 4);
 
-            Card newCard = new Card();
-            newCard.rank = rank;
-            newCard.suit = suit;
+            Card newCard = new Card(rank, suit);
 
             if (drawnCards.Contains(newCard))
-            {
-                Console.WriteLine("Found duplicate!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                 DrawCard();
-            }
             else 
                 drawnCards.Add(newCard);
 

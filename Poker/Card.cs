@@ -8,6 +8,12 @@ namespace Poker
 {
     public class Card : IComparable<Card>, IEquatable<Card>
     {
+        public Card(int rank, SuitType suit)
+        {
+            this.rank = rank;
+            this.suit = suit;
+        }
+
         public int rank;  // 2-14 (ace high)
         public SuitType suit;  // c, s, h, or d
 

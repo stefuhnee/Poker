@@ -70,7 +70,7 @@ namespace Poker
                     return winner;
                 
                 default:
-                    return "Hand1";
+                    return null;
             }
         }
 
