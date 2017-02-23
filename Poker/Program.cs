@@ -62,7 +62,16 @@ namespace Poker
                         winner = GetHighest(hand1.cards.Last().rank, hand2.cards.Last().rank);
                     return winner;
                 case HandType.TwoPair:
-                    return "Hand1";
+                    int handOneLowPair;
+                    int handOneHighPair;
+                    int handTwoLowPair;
+                    int handTwoHighPair;
+                    FindPairs(hand1.cards, out handOneLowPair, out handOneHighPair);
+                    FindPairs(hand2.cards, out handTwoLowPair, out handTwoHighPair);
+                    winner = GetHighest(handOneHighPair, handTwoHighPair);
+                    if (winner == null)
+                        winner = GetHighest(handOneLowPair, handTwoLowPair);
+                    return winner;
                 case HandType.Pair:
                     winner = CompareNOfAKind(2, hand1, hand2);
                     if (winner == null)
@@ -74,27 +83,34 @@ namespace Poker
             }
         }
 
+        static void FindPairs(Card[] cards, out int lowPair, out int highPair)
+        {
+            lowPair = findRankOfSet(2, cards);
+            cards = (Card[])cards.Reverse();
+            highPair = findRankOfSet(2, cards);
+        }
+
         static string CompareNOfAKind(int n, Hand hand1, Hand hand2)
         {
-            int handOneSetRank = findRankOfSet(n, hand1);
-            int handTwoSetRank = findRankOfSet(n, hand2);
+            int handOneSetRank = findRankOfSet(n, hand1.cards);
+            int handTwoSetRank = findRankOfSet(n, hand2.cards);
 
             return GetHighest(handOneSetRank, handTwoSetRank);
         }
 
-        static int findRankOfSet(int n, Hand hand)
+        static int findRankOfSet(int n, Card[] cards)
         {
             int counter = 1;
-            int rank = hand.cards[0].rank;
-            for (int i = 1; i < hand.cards.Length; i++)
+            int rank = cards[0].rank;
+            for (int i = 1; i < cards.Length; i++)
             {
-                if (hand.cards[i].rank == hand.cards[i - 1].rank)
+                if (cards[i].rank == cards[i - 1].rank)
                     counter++;
                 else
                     counter = 1;
                 if (counter == n)
                 {
-                    rank = hand.cards[i].rank;
+                    rank = cards[i].rank;
                     break;
                 }
             }
