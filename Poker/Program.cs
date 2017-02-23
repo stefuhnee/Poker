@@ -10,14 +10,35 @@ namespace Poker
     {
         static void Main(string[] args)
         {
-            // Get 5 cards
-            Hand hand = Get5Cards();
+            Console.WriteLine("Enter t for test mode, otherwise use computer generated hands.");
+            string input = Console.ReadLine().ToUpper();
+
+            Hand hand;
+            Hand hand2;
+
+            if (input == "T")
+            {
+                hand = new Hand();
+                hand2 = new Hand();
+                Console.WriteLine("Enter 5 cards for hand 1");
+                for (int i = 0; i < hand.cards.Length; i++)
+                    hand.cards[i] = new Card(i + 2, SuitType.Diamonds);
+                Console.WriteLine("Enter 5 cards for hand 2");
+                for (int i = 0; i < hand2.cards.Length - 1; i++)
+                    hand2.cards[i] = new Card(i + 2, SuitType.Hearts);
+                hand2.cards[hand2.cards.Length - 1] = new Card(14, SuitType.Hearts);
+
+            }
+            else
+            {
+                // Get 5 cards
+                hand = Get5Cards();
+                hand2 = Get5Cards();
+            }
             // Evaluate what kind of hand
             HandType ht1 = hand.Evaluate();
             Console.WriteLine("Hand 1 is a: " + ht1);
     
-            // Get 5 other cards
-            Hand hand2 = Get5Cards();
             // Evaluate type
             HandType ht2 = hand2.Evaluate();
             Console.WriteLine("Hand 2 is a: " + ht2);
@@ -52,15 +73,8 @@ namespace Poker
                 case HandType.FourOfAKind:
                     return CompareNOfAKind(4, hand1, hand2);
                 case HandType.FullHouse:
-                    var winner = CompareNOfAKind(3, hand1, hand2);
-                    if (winner == null)
-                        winner = CompareNOfAKind(2, hand1, hand2);
-                    return winner;
                 case HandType.ThreeOfAKind:
-                    winner = CompareNOfAKind(3, hand1, hand2);
-                    if (winner == null)
-                        winner = GetHighest(hand1.cards.Last().rank, hand2.cards.Last().rank);
-                    return winner;
+                    return CompareNOfAKind(3, hand1, hand2);
                 case HandType.TwoPair:
                     int handOneLowPair;
                     int handOneHighPair;
@@ -68,7 +82,7 @@ namespace Poker
                     int handTwoHighPair;
                     FindPairs(hand1.cards, out handOneLowPair, out handOneHighPair);
                     FindPairs(hand2.cards, out handTwoLowPair, out handTwoHighPair);
-                    winner = GetHighest(handOneHighPair, handTwoHighPair);
+                    var winner = GetHighest(handOneHighPair, handTwoHighPair);
                     if (winner == null)
                         winner = GetHighest(handOneLowPair, handTwoLowPair);
                     return winner;
@@ -138,6 +152,7 @@ namespace Poker
 
         static Card ReadCardFromConsole()
         {
+            Console.WriteLine("Reading");
             Card c = new Card();
             // two characters, one is suit, one is rank
             // fill in card, and return it

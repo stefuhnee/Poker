@@ -60,10 +60,14 @@ namespace Poker
             // If the first value is a 2 and final value is an ace, place the ace first and shift the elements of the array over.
             if (cards[0].rank == 2 && cards[cards.Length - 1].rank == 14)
             {
-                Card first = cards[0];
-                first.rank = 1;
-                Array.Copy(cards, 1, cards, 0, cards.Length - 1);
-                cards[cards.Length - 1] = first;
+                Card last = cards[cards.Length - 1];
+                last.rank = 1;
+                for (int i = cards.Length - 1; i > 0; i--)
+                    cards[i] = cards[i - 1];
+                cards[0] = last;
+
+                for (int i = 0; i < cards.Length; i++)
+                    Console.WriteLine("Card in hand: " + cards[i].rank);
             }
 
             for (int i = 0; i < cards.Length - 1; i++)

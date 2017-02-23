@@ -28,10 +28,10 @@ namespace Poker
         public bool IsValid()
         {
             return rank != 0 && 
-                suit == SuitType.Clubs 
+                (suit == SuitType.Clubs 
                 || suit == SuitType.Hearts 
                 || suit == SuitType.Spades 
-                || suit == SuitType.Diamonds;
+                || suit == SuitType.Diamonds);
         }
 
         public void SetFromChar(char ch)
