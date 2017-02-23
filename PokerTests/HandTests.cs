@@ -33,7 +33,6 @@ namespace Poker.Tests
         [TestMethod()]
         public void ToStringTest()
         {
-          
         }
 
     }
