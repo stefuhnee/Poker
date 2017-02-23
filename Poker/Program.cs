@@ -129,7 +129,6 @@ namespace Poker
 
         static Hand Get5Cards()
         {
-            Console.WriteLine("Please enter 5 cards, one per line");
             Hand hand = new Hand();
             for (int i = 0; i < 5; i++)
                 hand.cards[i] = Deck.DrawCard();
@@ -137,26 +136,26 @@ namespace Poker
             return hand;
         }
 
-        //static Card ReadCardFromConsole()
-        //{
-        //    Card c = new Card();
-        //    // two characters, one is suit, one is rank
-        //    // fill in card, and return it
-        //    // blank line returns null, meaning done
-        //    while (!c.IsValid())
-        //    {
-        //        string s = Console.ReadLine();
-        //        if (s.Length != 2)
-        //            return null;
-        //        c.SetFromChar(s[0]);
-        //        c.SetFromChar(s[1]);
-        //        if (!c.IsValid())
-        //        {
-        //            Console.WriteLine("Invalid card, try again");
-        //            c = new Card();
-        //        }
-        //    }
-        //    return c;
-        //}
+        static Card ReadCardFromConsole()
+        {
+            Card c = new Card();
+            // two characters, one is suit, one is rank
+            // fill in card, and return it
+            // blank line returns null, meaning done
+            while (!c.IsValid())
+            {
+                string s = Console.ReadLine();
+                if (s.Length != 2)
+                    return null;
+                c.SetFromChar(s[0]);
+                c.SetFromChar(s[1]);
+                if (!c.IsValid())
+                {
+                    Console.WriteLine("Invalid card, try again");
+                    c = new Card();
+                }
+            }
+            return c;
+        }
     }
 }
