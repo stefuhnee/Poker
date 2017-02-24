@@ -35,9 +35,7 @@ namespace Poker
             Console.WriteLine("Is a flush?: " + flush);
 
             if (straight && flush)
-            {
                 return HandType.StraightFlush;
-            }
             if (mostOfAKind == 4)
                 return HandType.FourOfAKind;
             if (pairs == 2 && mostOfAKind == 3)
